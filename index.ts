@@ -21,3 +21,4 @@ doubleLinkedList
     .deleteFromEnd()
 
 doubleLinkedList.print();
+
