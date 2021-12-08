@@ -21,9 +21,6 @@ export class Stack<T> {
                 this.innerStack = new ArrayStack<T>();
                 break;
             case StackType.LinkedListStackType:
-                this.innerStack = new LinkedListStack<T>();
-                break;
-
             default:
                 this.innerStack = new LinkedListStack<T>();
                 break;

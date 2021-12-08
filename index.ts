@@ -2,23 +2,23 @@ import { DoublyLinkedList } from "./data-structures/linked-list/doubly-linked-li
 
 console.log("Add items to linked list");
 
-let doubleLinkedList = new DoublyLinkedList<number>();
+let doublyLinkedList = new DoublyLinkedList<number>();
 
-doubleLinkedList
+doublyLinkedList
     .insert(4)
     .insert(6)
     .insert(7)
     .insert(10);
 
-doubleLinkedList
+doublyLinkedList
     .insertAtEnd(4)
     .insertAtEnd(6)
     .insertAtEnd(7)
     .insertAtEnd(10);
 
-doubleLinkedList
+doublyLinkedList
     .deleteFromEnd()
     .deleteFromEnd()
 
-doubleLinkedList.print();
+doublyLinkedList.print();
 

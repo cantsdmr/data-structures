@@ -1,5 +1,4 @@
-import { LinkedListOperations } from "./common";
-import { SinglyListNode as SinglyListNode } from "./list-node";
+import { LinkedListOperations, SinglyListNode } from "./common";
 
 export interface SinglyLinkedListOperations<T> extends LinkedListOperations<T> {
     insertAfterNode: (node: SinglyListNode<T>, data: T) => void,

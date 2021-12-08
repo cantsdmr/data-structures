@@ -1,16 +1,14 @@
 import { StackOperations } from "./stack";
 
 export class ArrayStack<T> implements StackOperations<T> {
-    private list: T[] = [];
-    private size: number = 0;
-    private top: number = -1;
+    private list: T[] = [];    
     private maxSize: number = 1000;
 
     pop = () => {
         return this.list.pop();
     };
     push = (data: T) => {
-        if (this.size >= this.maxSize) {
+        if (this.list.length >= this.maxSize) {
             console.log("Stack overflow");
             return;
         }
@@ -23,6 +21,6 @@ export class ArrayStack<T> implements StackOperations<T> {
         }
     };
     isEmpty = () => {
-        return this.size === 0;
+        return this.list.length === 0;
     }
 }

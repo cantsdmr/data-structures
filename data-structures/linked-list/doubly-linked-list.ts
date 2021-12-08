@@ -1,5 +1,4 @@
-import { LinkedListOperations } from "./common";
-import { DoublyListNode as DoublyListNode } from "./list-node";
+import { DoublyListNode, LinkedListOperations } from "./common";
 
 export interface DoublyLinkedListOperations<T> extends LinkedListOperations<T> {
     insertAfterNode: (node: DoublyListNode<T>, data: T) => void,
