@@ -3,7 +3,7 @@ import { BinarySearchTree } from "./binary-search-tree";
 import { BinaryTree } from "./binary-tree";
 import { RegularTree } from "./regular-tree";
 
-type GenericTree<T> = BinarySearchTree<T> | BinaryTree<T> | AVLTree<T> | RegularTree<T>;
+export type GenericTree<T> = BinarySearchTree<T> | BinaryTree<T> | AVLTree<T> | RegularTree<T>;
 
 export enum TreeType {
     BinarySearchType,
@@ -44,34 +44,39 @@ export class Tree<T> {
 
 export interface TreeOperations<T> {
     delete: (data: T) => void
-    insert: (data: T) => void
+    insert: (data: T, parentNode?: any) => void
     search: (data: T) => boolean
-    printPreOrder: () => void
-    printInOrder: () => void
-    printPostOrder: () => void
     isEmpty: () => boolean
 }
 
 export class BinaryTreeNode<T> {
-    private data: T | null = null;
-    private rightChild: BinaryTreeNode<T> | null = null;
-    private leftChild: BinaryTreeNode<T> | null = null;
+    data: T;
+    leftChild: BinaryTreeNodeType<T>;
+    rightChild: BinaryTreeNodeType<T>;
 
-    constructor(data: T | null = null, rightChild: BinaryTreeNode<T> | null = null, leftChild: BinaryTreeNode<T> | null = null) {
+    constructor(data: T, rightChild: BinaryTreeNodeType<T>, leftChild: BinaryTreeNodeType<T>) {
         this.data = data;
         this.rightChild = rightChild;
         this.leftChild = leftChild;
     }
+
+    deleteNode(){
+        this.rightChild = null;
+        this.leftChild = null;
+    }
 }
 
-export class SimpleTreeNode<T> {
-    private data: T | null = null;
-    private nextChild: SimpleTreeNode<T> | null = null;
-    private firstChild: SimpleTreeNode<T> | null = null;
+export class RegularTreeNode<T> {
+    data: T | null = null;
+    nextSibling: RegularTreeNode<T> | null = null;
+    firstChild: RegularTreeNode<T> | null = null;
 
-    constructor(data: T | null = null, nextChild: SimpleTreeNode<T> | null = null, firstChild: SimpleTreeNode<T> | null = null) {
+    constructor(data: T | null = null, nextSibling: RegularTreeNode<T> | null = null, firstChild: RegularTreeNode<T> | null = null) {
         this.data = data;
-        this.nextChild = nextChild;
+        this.nextSibling = nextSibling;
         this.firstChild = firstChild;
     }
 }
+
+export type BinaryTreeNodeType<T> = BinaryTreeNode<T> | null | undefined;
+export type BinaryTreeNodeDataType<T> = T | null | undefined;
