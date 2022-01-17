@@ -10,7 +10,7 @@ export class BinaryTree<T>{
     getRoot = () => {
         return this.rootNode;
     }
-    getHeight = (root?: BinaryTreeNodeType<T>): number => {
+    getHeight = (root: BinaryTreeNodeType<T> = this.rootNode): number => {
         if (root == null) {
             return -1;
         }
@@ -45,7 +45,7 @@ export class BinaryTree<T>{
 
         return compareMin < rootData ? compareMin : rootData;
     }
-    sum = (root: BinaryTreeNodeType<T>): number => {
+    sum = (root: BinaryTreeNodeType<T> = this.rootNode): number => {
         if (root == null) {
             return 0;
         }
@@ -55,7 +55,7 @@ export class BinaryTree<T>{
     isEmpty = () => {
         return this.rootNode == null;
     }
-    printPreOrder = (root: BinaryTreeNodeType<T>) => {
+    printPreOrder = (root: BinaryTreeNodeType<T> = this.rootNode) => {
         if (root == null) {
             return;
         }
@@ -64,7 +64,7 @@ export class BinaryTree<T>{
         this.printPreOrder(root.leftChild);
         this.printPreOrder(root.rightChild);
     }
-    printInOrder = (root: BinaryTreeNodeType<T>) => {
+    printInOrder = (root: BinaryTreeNodeType<T> = this.rootNode) => {
         if (root == null) {
             return;
         }
@@ -73,7 +73,7 @@ export class BinaryTree<T>{
         console.log(root.data);
         this.printInOrder(root.rightChild);
     }
-    printPostOrder = (root: BinaryTreeNodeType<T>) => {
+    printPostOrder = (root: BinaryTreeNodeType<T> = this.rootNode) => {
         if (root == null) {
             return;
         }
@@ -106,10 +106,10 @@ export class BinaryTree<T>{
     }
     insert = (data: T, parentNode: BinaryTreeNodeType<T> = this.rootNode) => {
         if (parentNode == null) {
-            parentNode = new BinaryTreeNode<T>(data, null, null);   
-            
+            parentNode = new BinaryTreeNode<T>(data, null, null);
+
             if (this.rootNode == null) {
-                this.rootNode = parentNode;                
+                this.rootNode = parentNode;
             }
 
             return;

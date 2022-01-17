@@ -120,4 +120,19 @@ export class BinarySearchTree<T> extends BinaryTree<T>{
         this.createBSTInOrder(left_data, newNode);
         this.createBSTInOrder(right_data, newNode);
     }
+    isBst = (root: BinaryTreeNodeType<T> = this.rootNode): boolean => {
+        if (root == null) {
+            return true;
+        }
+        
+        if (root.leftChild != null && root.data < root.leftChild.data) {
+            return false;
+        }
+
+        if (root.rightChild != null && root.data > root.rightChild.data) {
+            return false;
+        }
+        
+        return this.isBst(root.leftChild) && this.isBst(root.rightChild);
+    }
 }
