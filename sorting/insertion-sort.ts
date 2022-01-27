@@ -1,5 +1,5 @@
-export const insertionSort = (collection: Array<any>) => {
-    let result: Array<any> = [...collection];
+export const insertionSort = <T>(collection: T[]) => {
+    let result: T[] = [...collection];
 
     for (let i = 1; i < result.length; i++) {
         const element = result[i];

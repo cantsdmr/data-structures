@@ -1,7 +1,6 @@
 // console.log("Add items to regular tree");
 
-import { BinarySearchTree } from "./data-structures/tree/binary-search-tree";
-import { BinaryTree } from "./data-structures/tree/binary-tree";
+import { BinaryMinHeap } from "./data-structures/heap/binary-min-heap";
 
 
 // let regularTree = new RegularTree<string>()
@@ -24,7 +23,20 @@ import { BinaryTree } from "./data-structures/tree/binary-tree";
 // regularTree.printPerDepth(rootNode);
 
 
-let binaryTree = new BinarySearchTree<number>();
+let binaryHeap = new BinaryMinHeap<number>();
+
+binaryHeap.insert(10);
+binaryHeap.insert(3);
+binaryHeap.insert(9);
+binaryHeap.insert(24);
+
+console.log(binaryHeap.findMin());
+console.log(binaryHeap.deleteMin());
+console.log(binaryHeap.findMin());
+console.log(binaryHeap.deleteMin());
+console.log(binaryHeap.findMin());
+console.log(binaryHeap.deleteMin());
+
 
 // binaryTree.insert(10);
 // binaryTree.insert(20);
@@ -42,8 +54,8 @@ let binaryTree = new BinarySearchTree<number>();
 
 //binaryTree.printInOrder(binaryTree.getRoot());
 
-const numbers = [10, 20, 25, 30, 40, 50, 60];
+// const numbers = [10, 20, 25, 30, 40, 50, 60];
 
-binaryTree.createBSTInOrder(numbers, binaryTree.getRoot());
+// binaryTree.createBSTInOrder(numbers, binaryTree.getRoot());
 
-binaryTree.printPreOrder(binaryTree.getRoot());
+// binaryTree.printPreOrder(binaryTree.getRoot());
