@@ -1,5 +1,7 @@
+// implement buildheap
+
 export class BinaryMinHeap<T>{
-    private itemList : T[] = [];
+    private itemList: T[] = [];
     private size = -1;
 
     constructor() {
@@ -8,7 +10,7 @@ export class BinaryMinHeap<T>{
 
     findMin = (): T | undefined => {
         if (this.size > 0) {
-            return this.itemList[1];            
+            return this.itemList[1];
         }
 
         return undefined;
@@ -37,7 +39,6 @@ export class BinaryMinHeap<T>{
         this.size--;
 
         this.percolateDown(this.itemList, 1);
-        console.log(this.itemList);
     }
     percolateDown = (list: T[], index: number) => {
         if (this.size < index) {
@@ -57,17 +58,27 @@ export class BinaryMinHeap<T>{
             return;
         }
 
-        if (left >= right && right != null) {
+        if (right != null && left >= right) {
             newIndex = (2 * index) + 1;
-            list[index] = right;            
-        } else {
+            list[index] = right;
+        } else if(left != null && right >= left){
             newIndex = (2 * index);
             list[index] = left;
+        } else {
+            return;
         }
 
         list[newIndex] = root;
 
         this.percolateDown(list, newIndex);
     }
-    isMinHeap = () => {}
+    buildHeap = (unsortedItems: T[] = []) => {
+        this.itemList = [...this.itemList, ...unsortedItems];
+        this.size = unsortedItems.length;
+
+        for (let i = Math.floor(this.itemList.length / 2); i > 0; i--) {
+            this.percolateDown(this.itemList, i);
+        }
+    }
+    isMinHeap = () => { }
 }
