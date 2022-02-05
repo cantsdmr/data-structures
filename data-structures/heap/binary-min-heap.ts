@@ -5,7 +5,7 @@ export class BinaryMinHeap<T>{
     private size = -1;
 
     constructor() {
-        this.insert(0 as any);
+        this.insert(undefined as any);
     }
 
     findMin = (): T | undefined => {
@@ -33,12 +33,14 @@ export class BinaryMinHeap<T>{
             break;
         }
     }
-    deleteMin = () => {
+    deleteMin = (): T => {
+        const deleted = this.itemList[1];
         this.itemList[1] = this.itemList[this.itemList.length - 1];
         this.itemList.splice(this.itemList.length - 1, 1);
         this.size--;
 
         this.percolateDown(this.itemList, 1);
+        return deleted;
     }
     percolateDown = (list: T[], index: number) => {
         if (this.size < index) {
@@ -61,7 +63,7 @@ export class BinaryMinHeap<T>{
         if (right != null && left >= right) {
             newIndex = (2 * index) + 1;
             list[index] = right;
-        } else if(left != null && right >= left){
+        } else if (left != null && right >= left) {
             newIndex = (2 * index);
             list[index] = left;
         } else {
@@ -80,5 +82,37 @@ export class BinaryMinHeap<T>{
             this.percolateDown(this.itemList, i);
         }
     }
-    isMinHeap = () => { }
+    isMinHeap = () => {
+        let result = true;
+
+        for (let i = 1; i < this.itemList.length; i++) {
+            const parent = this.itemList[Math.floor(i / 2)];
+
+            if (parent > this.itemList[i]) {
+                result = false;
+                break;
+            }
+        }
+
+        return result;
+    }
+    findSibling = (index: number) => {
+        let sibling = null;
+
+        if (index > this.size) {
+            return sibling;
+        }
+
+        const parentIndex = Math.floor(index / 2);
+        const leftSiblingCandidate = index - 1;
+        const rightSiblingCandidate = index + 1;
+
+        if (Math.floor(leftSiblingCandidate / 2) == parentIndex) {
+            sibling = this.itemList[leftSiblingCandidate];
+        } else if (Math.floor(rightSiblingCandidate / 2) == parentIndex) {
+            sibling = this.itemList[rightSiblingCandidate];
+        }
+
+        return sibling;
+    }
 }
