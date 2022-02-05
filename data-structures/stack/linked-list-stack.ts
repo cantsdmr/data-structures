@@ -23,4 +23,7 @@ export class LinkedListStack<T> implements StackOperations<T> {
     isEmpty = () => {
         return this.list.isEmpty();
     }
+    findMin = () : T | undefined =>  {
+        throw new Error("Not Implemented");        
+    }
 }

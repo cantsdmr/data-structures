@@ -37,4 +37,5 @@ export interface StackOperations<T> {
     push: (data: T) => void
     print: () => void
     isEmpty: () => boolean
+    findMin: () => T | undefined
 }
