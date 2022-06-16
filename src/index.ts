@@ -1,6 +1,7 @@
 // console.log("Add items to regular tree");
 
 import { BinaryMinHeap } from "./data-structures/heap/binary-min-heap";
+import { Stack, StackType } from "./data-structures/stack/stack";
 
 
 // let regularTree = new RegularTree<string>()
@@ -23,19 +24,37 @@ import { BinaryMinHeap } from "./data-structures/heap/binary-min-heap";
 // regularTree.printPerDepth(rootNode);
 
 
-let binaryHeap = new BinaryMinHeap<number>();
+// let binaryHeap = new BinaryMinHeap<number>();
 
-binaryHeap.insert(10);
-binaryHeap.insert(3);
-binaryHeap.insert(9);
-binaryHeap.insert(24);
+// binaryHeap.buildHeap([10, 3, 9, 24]);
+// console.log(binaryHeap.findSibling(4));
 
-console.log(binaryHeap.findMin());
-console.log(binaryHeap.deleteMin());
-console.log(binaryHeap.findMin());
-console.log(binaryHeap.deleteMin());
-console.log(binaryHeap.findMin());
-console.log(binaryHeap.deleteMin());
+let stack = new Stack<number>({
+    type: StackType.ArrayStackType
+});
+
+const actualStack = stack.getStack();
+actualStack.push(-4);
+actualStack.push(15);
+actualStack.push(45);
+actualStack.push(-1);
+actualStack.push(8);
+actualStack.push(9);
+actualStack.push(42);
+
+console.log(actualStack.findMin());
+
+// binaryHeap.insert(10);
+// binaryHeap.insert(3);
+// binaryHeap.insert(9);
+// binaryHeap.insert(24);
+
+// console.log(binaryHeap.findMin());
+// console.log(binaryHeap.deleteMin());
+// console.log(binaryHeap.findMin());
+// console.log(binaryHeap.deleteMin());
+// console.log(binaryHeap.findMin());
+// console.log(binaryHeap.deleteMin());
 
 
 // binaryTree.insert(10);
