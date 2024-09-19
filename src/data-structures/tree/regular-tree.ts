@@ -11,6 +11,7 @@ export class RegularTree<T> implements TreeOperations<T>{
     delete = (data: T) => {
 
     };
+
     insert = (data: T, parentNode?: RegularTreeNode<T>) => {
         let newNode = new RegularTreeNode<T>(data);
 

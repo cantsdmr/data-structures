@@ -10,6 +10,7 @@ export class BinaryTree<T>{
     getRoot = () => {
         return this.rootNode;
     }
+
     getHeight = (root: BinaryTreeNodeType<T> = this.rootNode): number => {
         if (root == null) {
             return -1;
@@ -17,6 +18,7 @@ export class BinaryTree<T>{
 
         return 1 + Math.max(this.getHeight(root.leftChild), this.getHeight(root.rightChild));
     }
+
     findMax = (root: BinaryTreeNodeType<T> = this.rootNode): any => {
         if (root == null) {
             return -1;
@@ -30,6 +32,7 @@ export class BinaryTree<T>{
 
         return compareMax > rootData ? compareMax : rootData;
     }
+
     findMin = (root: BinaryTreeNodeType<T> = this.rootNode): any => {
         if (root == null) {
             return -1;
@@ -37,7 +40,7 @@ export class BinaryTree<T>{
 
         const leftMin = this.findMin(root.leftChild);
         const rightMin = this.findMin(root.rightChild);
-        const compareMin = Math.max(leftMin, rightMin);
+        const compareMin = Math.min(leftMin, rightMin);
 
         // Find Left subtree
         // Find Right subtree
@@ -45,6 +48,7 @@ export class BinaryTree<T>{
 
         return compareMin < rootData ? compareMin : rootData;
     }
+
     sum = (root: BinaryTreeNodeType<T> = this.rootNode): number => {
         if (root == null) {
             return 0;
@@ -52,9 +56,11 @@ export class BinaryTree<T>{
 
         return (root.data as unknown as number) + this.sum(root.leftChild) + this.sum(root.rightChild);
     }
+
     isEmpty = () => {
         return this.rootNode == null;
     }
+
     printPreOrder = (root: BinaryTreeNodeType<T> = this.rootNode) => {
         if (root == null) {
             return;
@@ -64,6 +70,7 @@ export class BinaryTree<T>{
         this.printPreOrder(root.leftChild);
         this.printPreOrder(root.rightChild);
     }
+
     printInOrder = (root: BinaryTreeNodeType<T> = this.rootNode) => {
         if (root == null) {
             return;
@@ -73,6 +80,7 @@ export class BinaryTree<T>{
         console.log(root.data);
         this.printInOrder(root.rightChild);
     }
+
     printPostOrder = (root: BinaryTreeNodeType<T> = this.rootNode) => {
         if (root == null) {
             return;
@@ -82,6 +90,7 @@ export class BinaryTree<T>{
         this.printPostOrder(root.rightChild);
         console.log(root.data);
     }
+
     getLeafCount = (root: BinaryTreeNodeType<T>): number => {
         if (root == null) {
             return 0;
@@ -93,6 +102,7 @@ export class BinaryTree<T>{
 
         return this.getLeafCount(root.leftChild) + this.getLeafCount(root.rightChild);
     }
+
     getMaxHeight = (root: BinaryTreeNodeType<T>): number => {
         if (root == null) {
             return 0;
