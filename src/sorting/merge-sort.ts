@@ -16,28 +16,34 @@ function seperateAndCompare(collection: any[]) {
 
 export const merge = (first: any[], second: any[]) => {
     let result= [];
-    let _first = [...first]
-    let _second = [...second]
+    let firstIndex = 0;
+    let secondIndex = 0;
     
     // refactor in order not to modify original array
-    while(_first.length > 0 && _second.length > 0){
-    	if(_first[0] <= _second[0]){
-      	result.push(_first[0])
-        _first.splice(0, 1)
-      } else {
-      	result.push(_second[0])
-        _second.splice(0, 1)
-      }
+    while (firstIndex <= first.length - 1 && secondIndex <= second.length - 1) {
+        if (first[firstIndex] != null && first[firstIndex] <= second[secondIndex]) {
+        result.push(first[firstIndex])
+        firstIndex++;
+        } else if(second[secondIndex] != null){
+        result.push(second[secondIndex])
+        secondIndex++;
+        }
     }
-    
-    while(_first.length > 0){
-        result.push(_first[0])
-        _first.splice(0, 1)
+
+    while (firstIndex <= first.length - 1) {
+        if(first[firstIndex] == null){
+            break;
+        }
+        result.push(first[firstIndex])
+        firstIndex++;
     }
-    
-    while(_second.length > 0){
-        result.push(_second[0])
-        _second.splice(0, 1)
+
+    while (secondIndex <= second.length - 1) {
+        if(second[secondIndex] == null){
+            break;
+        }
+        result.push(second[secondIndex])
+        secondIndex++;
     }
 
     return result;
