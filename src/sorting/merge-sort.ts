@@ -1,32 +1,37 @@
-export const mergeSort = (collection: any[]) => {
-    return seperateAndCompare(collection)
+export const mergeSort = <T>(collection: T[], comparator?: (a: T, b: T) => number) => {
+    return seperateAndCompare<T>(collection, comparator);
 }
 
-function seperateAndCompare(collection: any[]) {
+function seperateAndCompare<T>(collection: T[], comparator?: (a: T, b: T) => number): T[] {
     if (collection.length <= 1) {
-        return [collection[0]]
+        return collection;
     }
 
-    let firstHalf = seperateAndCompare(collection.slice(0, collection.length / 2));
-    let secondHalf = seperateAndCompare(collection.slice(collection.length / 2));
+    let firstHalf = seperateAndCompare<T>(collection.slice(0, collection.length / 2), comparator);
+    let secondHalf = seperateAndCompare<T>(collection.slice(collection.length / 2), comparator);
 
-    const sorted = merge(firstHalf, secondHalf);
-    return sorted;
+    return merge(firstHalf, secondHalf, comparator);
 }
 
-export const merge = (first: any[], second: any[]) => {
-    let result= [];
+export const merge = <T>(first: T[], second: T[], comparator?: (a: T, b: T) => number) => {
+    let result: T[] = [];
     let firstIndex = 0;
     let secondIndex = 0;
     
-    // refactor in order not to modify original array
+    const compare = (a: T, b: T): number => {
+        if (comparator) {
+            return comparator(a, b);
+        }
+        return a < b ? -1 : a > b ? 1 : 0;
+    };
+
     while (firstIndex <= first.length - 1 && secondIndex <= second.length - 1) {
-        if (first[firstIndex] != null && first[firstIndex] <= second[secondIndex]) {
-        result.push(first[firstIndex])
-        firstIndex++;
-        } else if(second[secondIndex] != null){
-        result.push(second[secondIndex])
-        secondIndex++;
+        if (first[firstIndex] != null && compare(first[firstIndex], second[secondIndex]) <= 0) {
+            result.push(first[firstIndex]);
+            firstIndex++;
+        } else if (second[secondIndex] != null) {
+            result.push(second[secondIndex]);
+            secondIndex++;
         }
     }
 

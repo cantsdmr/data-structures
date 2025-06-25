@@ -1,10 +1,15 @@
 import { BinaryTreeNode, BinaryTreeNodeType } from "./common";
 
-export class BinaryTree<T>{
+export class BinaryTree<T> {
     protected rootNode: BinaryTreeNodeType<T> = undefined;
+    protected comparator: (a: T, b: T) => number;
 
-    constructor() {
+    constructor(comparator?: (a: T, b: T) => number) {
+        this.comparator = comparator || ((a, b) => (a < b ? -1 : a > b ? 1 : 0));
+    }
 
+    protected compare(a: T, b: T): number {
+        return this.comparator(a, b);
     }
 
     getRoot = () => {
@@ -19,34 +24,34 @@ export class BinaryTree<T>{
         return 1 + Math.max(this.getHeight(root.leftChild), this.getHeight(root.rightChild));
     }
 
-    findMax = (root: BinaryTreeNodeType<T> = this.rootNode): any => {
+    findMax = (root: BinaryTreeNodeType<T> = this.rootNode): T | undefined => {
         if (root == null) {
-            return -1;
+            return undefined;
         }
 
+        let max = root.data;
         const leftMax = this.findMax(root.leftChild);
         const rightMax = this.findMax(root.rightChild);
-        const compareMax = Math.max(leftMax, rightMax);
 
-        const rootData = root.data as unknown as number;
+        if (leftMax !== undefined && this.compare(max, leftMax) < 0) max = leftMax;
+        if (rightMax !== undefined && this.compare(max, rightMax) < 0) max = rightMax;
 
-        return compareMax > rootData ? compareMax : rootData;
+        return max;
     }
 
-    findMin = (root: BinaryTreeNodeType<T> = this.rootNode): any => {
+    findMin = (root: BinaryTreeNodeType<T> = this.rootNode): T | undefined => {
         if (root == null) {
-            return -1;
+            return undefined;
         }
 
+        let min = root.data;
         const leftMin = this.findMin(root.leftChild);
         const rightMin = this.findMin(root.rightChild);
-        const compareMin = Math.min(leftMin, rightMin);
 
-        // Find Left subtree
-        // Find Right subtree
-        const rootData = root.data as unknown as number;
+        if (leftMin !== undefined && this.compare(min, leftMin) > 0) min = leftMin;
+        if (rightMin !== undefined && this.compare(min, rightMin) > 0) min = rightMin;
 
-        return compareMin < rootData ? compareMin : rootData;
+        return min;
     }
 
     sum = (root: BinaryTreeNodeType<T> = this.rootNode): number => {

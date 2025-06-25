@@ -1,47 +1,54 @@
-// implement buildheap
-
-export class BinaryMinHeap<T>{
+export class BinaryMinHeap<T> {
     private itemList: T[] = [];
-    private size = -1;
+    private size = 0;
+    private comparator: (a: T, b: T) => number;
 
-    constructor() {
-        this.insert(undefined as any);
+    constructor(comparator?: (a: T, b: T) => number) {
+        this.comparator = comparator || ((a, b) => (a < b ? -1 : a > b ? 1 : 0));
+    }
+
+    private compare(a: T, b: T): boolean {
+        if (a === undefined || b === undefined) return false;
+        return this.comparator(a, b) < 0;
     }
 
     findMin = (): T | undefined => {
         if (this.size > 0) {
-            return this.itemList[1];
+            return this.itemList[0];
         }
 
         return undefined;
     }
     insert = (data: T) => {
+        if (data === undefined) return;
+        
         this.itemList.push(data);
         this.size++;
 
-        for (let index = this.itemList.length - 1; index > 0; index /= 2) {
+        for (let index = this.itemList.length - 1; index > 0; index = Math.floor(index / 2)) {
             const element = this.itemList[index];
-            const parentIndex = index / 2;
+            const parentIndex = Math.floor(index / 2);
             const parentElement = this.itemList[parentIndex];
 
-            if (element < parentElement) {
+            if (this.compare(element, parentElement)) {
                 this.itemList[parentIndex] = element;
                 this.itemList[index] = parentElement;
                 continue;
             }
-
             break;
         }
     }
+
     deleteMin = (): T => {
-        const deleted = this.itemList[1];
-        this.itemList[1] = this.itemList[this.itemList.length - 1];
+        const deleted = this.itemList[0];
+        this.itemList[0] = this.itemList[this.itemList.length - 1];
         this.itemList.splice(this.itemList.length - 1, 1);
         this.size--;
 
-        this.percolateDown(this.itemList, 1);
+        this.percolateDown(this.itemList, 0);
         return deleted;
     }
+
     percolateDown = (list: T[], index: number) => {
         if (this.size < index) {
             return;
@@ -56,14 +63,15 @@ export class BinaryMinHeap<T>{
             return;
         }
 
-        if (root <= left && root <= right) {
+        if ((left == null || !this.compare(left, root)) && 
+            (right == null || !this.compare(right, root))) {
             return;
         }
 
-        if (right != null && left >= right) {
+        if (right != null && this.compare(right, left)) {
             newIndex = (2 * index) + 1;
             list[index] = right;
-        } else if (left != null && right >= left) {
+        } else if (left != null) {
             newIndex = (2 * index);
             list[index] = left;
         } else {
@@ -71,24 +79,21 @@ export class BinaryMinHeap<T>{
         }
 
         list[newIndex] = root;
-
         this.percolateDown(list, newIndex);
     }
     buildHeap = (unsortedItems: T[] = []) => {
         this.itemList = [...this.itemList, ...unsortedItems];
-        this.size = unsortedItems.length;
 
-        for (let i = Math.floor(this.itemList.length / 2); i > 0; i--) {
+        for (let i = Math.floor(this.itemList.length / 2); i >= 0; i--) {
             this.percolateDown(this.itemList, i);
         }
     }
     isMinHeap = () => {
         let result = true;
 
-        for (let i = 1; i < this.itemList.length; i++) {
+        for (let i = 0; i < this.itemList.length; i++) {
             const parent = this.itemList[Math.floor(i / 2)];
-
-            if (parent > this.itemList[i]) {
+            if (!this.compare(parent, this.itemList[i])) {
                 result = false;
                 break;
             }
@@ -114,5 +119,13 @@ export class BinaryMinHeap<T>{
         }
 
         return sibling;
+    }
+
+    getSize = () => {
+        return this.size;
+    }
+
+    printHeap = () => {
+        console.log(this.itemList);
     }
 }

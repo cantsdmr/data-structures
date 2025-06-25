@@ -1,4 +1,13 @@
-export * from './types';
+export enum TreeType {
+    BinarySearchType,
+    BinaryType,
+    AVLType,
+    RegularType
+}
+
+export interface TreeParam {
+    type: TreeType
+}
 
 export interface TreeOperations<T> {
     delete: (data: T) => void
@@ -37,4 +46,4 @@ export class RegularTreeNode<T> {
 }
 
 export type BinaryTreeNodeType<T> = BinaryTreeNode<T> | null | undefined;
-export type BinaryTreeNodeDataType<T> = T | null | undefined;
+export type BinaryTreeNodeDataType<T> = T | null | undefined; 

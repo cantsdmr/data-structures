@@ -2,6 +2,7 @@
 
 import { BinaryMinHeap } from "./data-structures/heap/binary-min-heap";
 import { Stack, StackType } from "./data-structures/stack/stack";
+import { HuffmanCoding } from "./encoding/huffman-coding";
 
 
 // let regularTree = new RegularTree<string>()
@@ -29,20 +30,20 @@ import { Stack, StackType } from "./data-structures/stack/stack";
 // binaryHeap.buildHeap([10, 3, 9, 24]);
 // console.log(binaryHeap.findSibling(4));
 
-let stack = new Stack<number>({
-    type: StackType.ArrayStackType
-});
+// let stack = new Stack<number>({
+//     type: StackType.ArrayStackType
+// });
 
-const actualStack = stack.getStack();
-actualStack.push(-4);
-actualStack.push(15);
-actualStack.push(45);
-actualStack.push(-1);
-actualStack.push(8);
-actualStack.push(9);
-actualStack.push(42);
+// const actualStack = stack.getStack();
+// actualStack.push(-4);
+// actualStack.push(15);
+// actualStack.push(45);
+// actualStack.push(-1);
+// actualStack.push(8);
+// actualStack.push(9);
+// actualStack.push(42);
 
-console.log(actualStack.findMin());
+// console.log(actualStack.findMin());
 
 // binaryHeap.insert(10);
 // binaryHeap.insert(3);
@@ -78,3 +79,15 @@ console.log(actualStack.findMin());
 // binaryTree.createBSTInOrder(numbers, binaryTree.getRoot());
 
 // binaryTree.printPreOrder(binaryTree.getRoot());
+
+const input = 'ABCDASDASDAASEETT';
+const huff = new HuffmanCoding(input);
+
+const result = huff.encode();
+
+// calculate compression ratio using byte calculation
+const compressionRatio = (result.encodedString.length / (input.length * 8)) * 100;
+console.log(compressionRatio);
+
+
+console.log(huff.decode(result.encodedString));
